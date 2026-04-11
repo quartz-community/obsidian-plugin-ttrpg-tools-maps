@@ -1,10 +1,5 @@
 import { QuartzComponent } from '@quartz-community/types';
 
-interface ExampleComponentOptions {
-    prefix?: string;
-    suffix?: string;
-    className?: string;
-}
-declare const _default: (opts?: ExampleComponentOptions) => QuartzComponent;
+declare const _default: (_opts?: Record<string, unknown>) => QuartzComponent;
 
-export { _default as ExampleComponent, type ExampleComponentOptions };
+export { _default as TTRPGMap };

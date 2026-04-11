@@ -1,0 +1,306 @@
+/*
+ * Portions of this file are ported from:
+ *   zoom-map by Jareika
+ *   https://github.com/Jareika/zoom-map
+ *   Commit: da748dbcca9247ef26cf596b9e64b0b552fdb175
+ *   MIT License — Copyright (c) 2025 Jareika
+ */
+
+.ttrpg-map-root {
+  --ttrpg-map-bg: #1a1a1a;
+  --ttrpg-map-border: #444;
+  --ttrpg-map-hud-bg: rgba(20, 20, 20, 0.85);
+  --ttrpg-map-hud-fg: #f0f0f0;
+  --ttrpg-map-hud-accent: #6ea8ff;
+  --ttrpg-map-tooltip-bg: rgba(0, 0, 0, 0.9);
+  --ttrpg-map-tooltip-fg: #fff;
+  --ttrpg-map-error-fg: #e66;
+
+  position: relative;
+  display: block;
+  width: 100%;
+  background: var(--ttrpg-map-bg);
+  border: 1px solid var(--ttrpg-map-border);
+  border-radius: 6px;
+  overflow: hidden;
+  user-select: none;
+
+  &.zm-root {
+    position: relative;
+  }
+
+  .zm-viewport {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    touch-action: none;
+    contain: layout size style;
+    overscroll-behavior: contain;
+    transform: translateZ(0);
+  }
+
+  .zm-clip {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    contain: layout paint size style;
+    z-index: 0;
+  }
+
+  .zm-world {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: 0 0;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .zm-image {
+    display: block;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    max-width: none;
+  }
+
+  .zm-overlays {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
+
+  .zm-overlay-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .zm-mapgrid {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+
+    &__svg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    &__path {
+      vector-effect: non-scaling-stroke;
+      fill: none;
+      pointer-events: none;
+    }
+  }
+
+  .zm-markers {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .zm-marker {
+    position: absolute;
+    transform-origin: 0 0;
+    cursor: pointer;
+    touch-action: none;
+    z-index: 10;
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  .zm-marker-inv {
+    transform-origin: 0 0;
+  }
+
+  .zm-marker-anchor {
+    transform-origin: 0 0;
+  }
+
+  .zm-marker-icon {
+    display: block;
+    width: 32px;
+    height: 32px;
+    pointer-events: auto;
+    -webkit-user-drag: none;
+  }
+
+  .zm-marker-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .zm-marker-label {
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    padding: 2px 6px;
+    background: var(--ttrpg-map-tooltip-bg);
+    color: var(--ttrpg-map-tooltip-fg);
+    font-size: 11px;
+    white-space: nowrap;
+    border-radius: 3px;
+    pointer-events: none;
+    margin-top: 4px;
+  }
+
+  .zm-marker:hover .zm-marker-tooltip {
+    display: block;
+  }
+
+  .zm-marker-tooltip {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background: var(--ttrpg-map-tooltip-bg);
+    color: var(--ttrpg-map-tooltip-fg);
+    font-size: 12px;
+    white-space: nowrap;
+    border-radius: 3px;
+    pointer-events: none;
+    margin-top: 4px;
+    z-index: 100;
+  }
+
+  .zm-draw {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+
+    &__svg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    &__shape {
+      vector-effect: non-scaling-stroke;
+      pointer-events: auto;
+    }
+  }
+
+  .zm-text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+
+    &__svg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      overflow: visible;
+      pointer-events: none;
+    }
+  }
+
+  .zm-hud {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  .zm-hud__button,
+  .zm-hud__select {
+    pointer-events: auto;
+    background: var(--ttrpg-map-hud-bg);
+    color: var(--ttrpg-map-hud-fg);
+    border: 1px solid var(--ttrpg-map-border);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+
+    &:hover {
+      border-color: var(--ttrpg-map-hud-accent);
+    }
+  }
+
+  .zm-hud__panel {
+    pointer-events: auto;
+    background: var(--ttrpg-map-hud-bg);
+    color: var(--ttrpg-map-hud-fg);
+    border: 1px solid var(--ttrpg-map-border);
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-size: 12px;
+    max-width: 220px;
+    max-height: 60%;
+    overflow-y: auto;
+
+    &-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 0;
+
+      input[type="checkbox"] {
+        margin: 0;
+      }
+
+      label {
+        flex: 1;
+        cursor: pointer;
+        user-select: none;
+      }
+    }
+  }
+
+  .ttrpg-map-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 200px;
+    padding: 24px;
+    text-align: center;
+    color: var(--ttrpg-map-error-fg);
+    font-family: inherit;
+
+    strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+  }
+}

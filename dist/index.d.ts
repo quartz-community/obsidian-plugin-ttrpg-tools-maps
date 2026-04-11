@@ -1,21 +1,17 @@
-import { QuartzTransformerPlugin, QuartzFilterPlugin, QuartzEmitterPlugin } from '@quartz-community/types';
+import { QuartzTransformerPlugin, QuartzEmitterPlugin } from '@quartz-community/types';
 export { PageGenerator, PageMatcher, QuartzComponent, QuartzComponentConstructor, QuartzComponentProps, QuartzEmitterPlugin, QuartzFilterPlugin, QuartzPageTypePlugin, QuartzPageTypePluginInstance, QuartzTransformerPlugin, StringResource, VirtualPage } from '@quartz-community/types';
-import { ExampleTransformerOptions, ExampleFilterOptions, ExampleEmitterOptions } from './types.js';
-export { ExampleComponent, ExampleComponentOptions } from './components/index.js';
+import { ResolvedMap, TransformerOptions } from './types.js';
+export { AlignMode, AnchorSpace, BaseImage, DrawLayer, Drawing, DrawingKind, DrawingStyle, FillPatternKind, GridOverlay, GridShape, ImageOverlay, Marker, MarkerKind, MarkerLayer, RenderMode, ResolveError, ResolvedImageRef, StorageMode, TTRPGMapData, TextBaseline, TextBox, TextLayer, TextLayerStyle, YamlBaseImageEntry, YamlOptions, YamlOverlayEntry } from './types.js';
+export { TTRPGMap } from './components/index.js';
 
-/**
- * Example transformer showing remark/rehype usage and resource injection.
- */
-declare const ExampleTransformer: QuartzTransformerPlugin<Partial<ExampleTransformerOptions>>;
+declare module "vfile" {
+    interface DataMap {
+        ttrpgMaps?: ResolvedMap[];
+    }
+}
+declare const DEFAULT_TRANSFORMER_OPTIONS: TransformerOptions;
+declare const TTRPGMapTransformer: QuartzTransformerPlugin<Partial<TransformerOptions>>;
 
-/**
- * Example filter that removes drafts, tagged pages, and excluded path prefixes.
- */
-declare const ExampleFilter: QuartzFilterPlugin<Partial<ExampleFilterOptions>>;
+declare const TTRPGMapEmitter: QuartzEmitterPlugin;
 
-/**
- * Example emitter that writes a JSON manifest of content metadata.
- */
-declare const ExampleEmitter: QuartzEmitterPlugin<Partial<ExampleEmitterOptions>>;
-
-export { ExampleEmitter, ExampleEmitterOptions, ExampleFilter, ExampleFilterOptions, ExampleTransformer, ExampleTransformerOptions };
+export { DEFAULT_TRANSFORMER_OPTIONS, ResolvedMap, TTRPGMapEmitter, TTRPGMapTransformer, TransformerOptions };

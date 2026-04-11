@@ -1,23 +1,23 @@
 {
-  "name": "@quartz-community/plugin-template",
+  "name": "@quartz-community/obsidian-plugin-ttrpg-tools-maps",
   "version": "0.1.0",
-  "description": "Template repository for Quartz community plugins.",
+  "description": "Renders TTRPG Tools: Maps data (zoommap code blocks + .markers.json) as interactive read-only maps in Quartz v5.",
   "type": "module",
   "license": "MIT",
   "author": "Quartz Community",
   "homepage": "https://quartz.jzhao.xyz",
   "repository": {
     "type": "git",
-    "url": "https://github.com/quartz-community/plugin-template"
+    "url": "https://github.com/quartz-community/obsidian-plugin-ttrpg-tools-maps"
   },
   "keywords": [
     "quartz",
     "quartz-plugin",
-    "plugin-template",
-    "remark",
-    "rehype",
-    "mdast",
-    "hast"
+    "ttrpg",
+    "maps",
+    "obsidian",
+    "zoommap",
+    "rehype"
   ],
   "files": [
     "dist",
@@ -70,7 +70,8 @@
   },
   "dependencies": {
     "@quartz-community/types": "github:quartz-community/types",
-    "@quartz-community/utils": "github:quartz-community/utils"
+    "@quartz-community/utils": "github:quartz-community/utils",
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "@types/hast": "^3.0.4",
@@ -88,6 +89,7 @@
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
     "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
     "remark-stringify": "^11.0.0",
     "sass": "^1.97.3",
     "tsup": "^8.5.0",
@@ -98,29 +100,46 @@
     "vitest": "^2.1.9"
   },
   "quartz": {
-    "name": "plugin-template",
-    "displayName": "Plugin Template",
-    "category": "transformer",
-    "version": "1.0.0",
+    "name": "ttrpg-tools-maps",
+    "displayName": "TTRPG Tools: Maps",
+    "category": [
+      "transformer",
+      "emitter",
+      "component"
+    ],
+    "version": "0.1.0",
     "quartzVersion": ">=5.0.0",
     "dependencies": [],
-    "defaultOrder": 50,
+    "defaultOrder": 55,
     "defaultEnabled": true,
-    "defaultOptions": {},
+    "defaultOptions": {
+      "blockLanguage": "zoommap",
+      "inlineBlockHeaderId": "ZOOMMAP-DATA",
+      "maxInlineDataBytes": 0,
+      "defaultIconKey": "pin-red"
+    },
     "optionSchema": {
-      "highlightToken": {
-        "type": "enum",
-        "values": [
-          "==",
-          "**",
-          "~~"
-        ]
+      "blockLanguage": {
+        "type": "string",
+        "default": "zoommap"
+      },
+      "inlineBlockHeaderId": {
+        "type": "string",
+        "default": "ZOOMMAP-DATA"
+      },
+      "maxInlineDataBytes": {
+        "type": "number",
+        "default": 0
+      },
+      "defaultIconKey": {
+        "type": "string",
+        "default": "pin-red"
       }
     },
     "components": {
-      "ExampleComponent": {
-        "displayName": "Example Component",
-        "defaultPosition": "right",
+      "TTRPGMap": {
+        "displayName": "TTRPG Map",
+        "defaultPosition": "inline",
         "defaultPriority": 50
       }
     }

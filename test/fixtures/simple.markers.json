@@ -1,0 +1,16 @@
+{
+  "layers": [{ "id": "default", "name": "Default", "visible": true }],
+  "markers": [
+    {
+      "id": "m_tavern",
+      "x": 0.5,
+      "y": 0.3,
+      "layer": "default",
+      "iconKey": "pin-red",
+      "tooltip": "The Prancing Pony",
+      "type": "pin"
+    }
+  ],
+  "bases": ["assets/world-map.webp"],
+  "panClamp": true
+}

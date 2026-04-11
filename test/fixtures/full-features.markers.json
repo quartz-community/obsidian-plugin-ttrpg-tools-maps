@@ -1,0 +1,181 @@
+{
+  "size": { "w": 2048, "h": 1536 },
+  "layers": [
+    { "id": "cities", "name": "Cities", "visible": true },
+    { "id": "quests", "name": "Quests", "visible": true, "locked": false },
+    { "id": "hidden-stuff", "name": "Hidden", "visible": false }
+  ],
+  "markers": [
+    {
+      "id": "m_prancing_pony",
+      "x": 0.42,
+      "y": 0.58,
+      "layer": "cities",
+      "iconKey": "pin-red",
+      "tooltip": "The Prancing Pony",
+      "link": "Taverns/Prancing Pony",
+      "type": "pin"
+    },
+    {
+      "id": "m_bree",
+      "x": 0.4,
+      "y": 0.55,
+      "layer": "cities",
+      "iconKey": "castle",
+      "tooltip": "Bree",
+      "tooltipLabelAlways": true,
+      "type": "pin",
+      "minZoom": 0.5,
+      "maxZoom": 6
+    },
+    {
+      "id": "m_quest_ring",
+      "x": 0.72,
+      "y": 0.31,
+      "layer": "quests",
+      "iconKey": "star",
+      "tooltip": "Find the One Ring",
+      "type": "pin"
+    },
+    {
+      "id": "m_sticker",
+      "x": 0.15,
+      "y": 0.85,
+      "layer": "cities",
+      "type": "sticker",
+      "stickerPath": "assets/stickers/dragon.png",
+      "stickerSize": 48
+    }
+  ],
+  "bases": ["assets/world-base.webp", { "path": "assets/world-night.webp", "name": "Night mode" }],
+  "overlays": [
+    { "path": "assets/roads.png", "visible": true, "name": "Roads" },
+    { "path": "assets/labels.png", "visible": false, "name": "Labels" }
+  ],
+  "activeBase": "assets/world-base.webp",
+  "grids": [
+    {
+      "id": "g_square",
+      "name": "Square grid",
+      "visible": true,
+      "shape": "square",
+      "color": "#ffffff",
+      "width": 1,
+      "opacity": 0.4,
+      "spacing": 64,
+      "offsetX": 0,
+      "offsetY": 0
+    },
+    {
+      "id": "g_hex",
+      "name": "Hex grid",
+      "visible": false,
+      "shape": "hex",
+      "color": "#ffcc00",
+      "width": 1.5,
+      "opacity": 0.6,
+      "spacing": 48,
+      "offsetX": 10,
+      "offsetY": 10
+    }
+  ],
+  "drawLayers": [
+    { "id": "dl_regions", "name": "Regions", "visible": true },
+    { "id": "dl_routes", "name": "Routes", "visible": true }
+  ],
+  "drawings": [
+    {
+      "id": "d_eriador",
+      "layerId": "dl_regions",
+      "kind": "polygon",
+      "visible": true,
+      "polygon": [
+        { "x": 0.1, "y": 0.2 },
+        { "x": 0.5, "y": 0.2 },
+        { "x": 0.5, "y": 0.6 },
+        { "x": 0.1, "y": 0.6 }
+      ],
+      "style": {
+        "strokeColor": "#00aa00",
+        "strokeWidth": 3,
+        "fillColor": "#00ff00",
+        "fillOpacity": 0.15,
+        "label": "Eriador",
+        "fillPattern": "striped"
+      }
+    },
+    {
+      "id": "d_mordor",
+      "layerId": "dl_regions",
+      "kind": "circle",
+      "visible": true,
+      "circle": { "cx": 0.78, "cy": 0.62, "r": 0.08 },
+      "style": {
+        "strokeColor": "#ff0000",
+        "strokeWidth": 4,
+        "fillColor": "#330000",
+        "fillOpacity": 0.4,
+        "label": "Mordor"
+      }
+    },
+    {
+      "id": "d_road",
+      "layerId": "dl_routes",
+      "kind": "polyline",
+      "visible": true,
+      "polyline": [
+        { "x": 0.42, "y": 0.58 },
+        { "x": 0.55, "y": 0.5 },
+        { "x": 0.78, "y": 0.62 }
+      ],
+      "style": {
+        "strokeColor": "#aa7733",
+        "strokeWidth": 2,
+        "strokeDash": [6, 4],
+        "distanceLabel": true
+      }
+    },
+    {
+      "id": "d_rect",
+      "layerId": "dl_regions",
+      "kind": "rect",
+      "visible": true,
+      "rect": { "x0": 0.02, "y0": 0.02, "x1": 0.25, "y1": 0.15 },
+      "style": {
+        "strokeColor": "#0000ff",
+        "strokeWidth": 2,
+        "fillColor": "#aaaaff",
+        "fillOpacity": 0.3,
+        "label": "Shire"
+      }
+    }
+  ],
+  "textLayers": [
+    {
+      "id": "tl_labels",
+      "name": "Region labels",
+      "visible": true,
+      "style": {
+        "fontFamily": "serif",
+        "fontSize": 24,
+        "color": "#000000",
+        "italic": true
+      },
+      "boxes": [
+        {
+          "id": "tb_eriador",
+          "name": "Eriador label",
+          "mode": "custom",
+          "rect": { "x0": 0.15, "y0": 0.3, "x1": 0.45, "y1": 0.35 },
+          "lines": [
+            { "id": "l1", "x0": 0.15, "y0": 0.32, "x1": 0.45, "y1": 0.32, "text": "ERIADOR" }
+          ]
+        }
+      ]
+    }
+  ],
+  "pinSizeOverrides": {
+    "pin-red": 40
+  },
+  "panClamp": true
+}

@@ -36,6 +36,12 @@
       "rules": {
         "@typescript-eslint/triple-slash-reference": "off"
       }
+    },
+    {
+      "files": ["**/*.inline.ts"],
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": "off"
+      }
     }
   ]
 }
