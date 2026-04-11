@@ -1,0 +1,90 @@
+# Quartz Community Plugin Template
+
+Provider-agnostic instruction file for AI coding assistants developing Quartz community plugins.
+
+## Project Overview
+
+This repository is a template for building, testing, and publishing Quartz community plugins. It uses a factory-function API where plugins are created by functions returning objects with a `name` and lifecycle hooks.
+
+## Plugin Type Decision Tree
+
+Plugins are not mutually exclusive. A single plugin can implement multiple types.
+
+- **Transformer**: Modifies content during the build (remark/rehype). Use if you need to change how Markdown is parsed or rendered.
+- **Filter**: Decides which files to include in the final site. Use for drafts, private notes, or path-based exclusions.
+- **Emitter**: Generates new files (JSON, RSS, CNAME, etc.). Use for site-wide manifests or integration files.
+- **Page Type**: Defines custom routes and page generation logic. Use for virtual pages or non-Markdown content.
+- **Component**: Provides UI elements for Quartz layouts. Use for navigation, sidebars, or custom widgets.
+- **Bases View**: Registers custom views in the `@quartz-community/bases-page` system.
+
+## Files to Modify
+
+- `src/`: All plugin logic, components, and styles.
+- `package.json`: Plugin manifest (`quartz` field), dependencies, and metadata.
+- `src/i18n/`: Translations for multi-language support.
+
+## Leave Alone
+
+- `dist/`: Build output.
+- `.github/`: CI/CD workflows (unless customizing publishing).
+- `tsup.config.ts`: Build configuration.
+
+## Plugin Creation Workflow
+
+1. **Define Options**: Create an interface for plugin configuration in `src/types.ts`.
+2. **Implement Logic**: Create the plugin factory in a new file (e.g., `src/my-plugin.ts`).
+3. **Export**: Add the plugin to `src/index.ts`.
+4. **Manifest**: Update the `quartz` field in `package.json` with category and default options.
+5. **Test**: Add a test case in `src/tests/` and run `npm test`.
+6. **Build**: Run `npm run build` to verify the bundle.
+
+## Package.json Quartz Manifest
+
+The `quartz` field is required for discovery and configuration:
+
+```json
+{
+  "quartz": {
+    "name": "my-plugin",
+    "category": ["transformer", "component"],
+    "defaultOptions": { "enabled": true },
+    "optionSchema": { "enabled": { "type": "boolean" } },
+    "components": { "MyComponent": { "defaultPosition": "right" } }
+  }
+}
+```
+
+## Import Patterns
+
+- **Types**: Import from `@quartz-community/types`.
+- **Utils**: Import from `@quartz-community/utils`.
+- **Runtime**: Use `vfile` for content manipulation in transformers.
+
+## i18n Setup
+
+1. Add keys to `src/i18n/locales/en-US.ts`.
+2. Create other locales in `src/i18n/locales/`.
+3. Use the `i18n` helper in your plugin or component.
+
+## Common Mistakes
+
+- **Missing Exports**: Forgetting to export the plugin factory from `src/index.ts`.
+- **Wrong Category**: Not matching the `category` in `package.json` with the implemented hooks.
+- **Peer Dependencies**: Adding `preact` or `vfile` as `dependencies` instead of `peerDependencies`.
+
+## Testing Patterns
+
+Use `vitest`. Mock the `BuildCtx` and `ProcessedContent` when testing transformers or emitters.
+
+## Checklist Before Submission
+
+- [ ] `npm run build` completes without errors.
+- [ ] `npm test` passes all cases.
+- [ ] `package.json` manifest is complete and accurate.
+- [ ] `README.md` documents all options.
+
+## Build System Quirks
+
+- **.inline.ts**: Files ending in `.inline.ts` are bundled as raw strings for client-side injection.
+- **.scss**: Styles are compiled to CSS strings and attached to components via `Component.css`.
+- **Branded Types**: Use `FullSlug` and `FilePath` from `@quartz-community/types` for path safety.
