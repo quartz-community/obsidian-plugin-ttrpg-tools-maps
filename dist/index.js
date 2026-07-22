@@ -5,7 +5,7 @@ import { parse } from 'yaml';
 
 createRequire(import.meta.url);
 
-// node_modules/unist-util-is/lib/index.js
+// ../../node_modules/.pnpm/unist-util-is@6.0.1/node_modules/unist-util-is/lib/index.js
 var convert = (
   // Note: overloads in JSDoc can’t yet use different `@template`s.
   /**
@@ -104,12 +104,12 @@ function looksLikeANode(value) {
   return value !== null && typeof value === "object" && "type" in value;
 }
 
-// node_modules/unist-util-visit-parents/lib/color.node.js
+// ../../node_modules/.pnpm/unist-util-visit-parents@6.0.2/node_modules/unist-util-visit-parents/lib/color.node.js
 function color(d) {
   return "\x1B[33m" + d + "\x1B[39m";
 }
 
-// node_modules/unist-util-visit-parents/lib/index.js
+// ../../node_modules/.pnpm/unist-util-visit-parents@6.0.2/node_modules/unist-util-visit-parents/lib/index.js
 var empty = [];
 var CONTINUE = true;
 var EXIT = false;
@@ -186,7 +186,7 @@ function toResult(value) {
   return value === null || value === void 0 ? empty : [value];
 }
 
-// node_modules/unist-util-visit/lib/index.js
+// ../../node_modules/.pnpm/unist-util-visit@5.1.0/node_modules/unist-util-visit/lib/index.js
 function visit(tree, testOrVisitor, visitorOrReverse, maybeReverse) {
   let reverse;
   let test;
