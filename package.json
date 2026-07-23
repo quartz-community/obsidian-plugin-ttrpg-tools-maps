@@ -1,6 +1,6 @@
 {
   "name": "@quartz-community/obsidian-plugin-ttrpg-tools-maps",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Renders TTRPG Tools: Maps data (zoommap code blocks + .markers.json) as interactive read-only maps in Quartz v5.",
   "type": "module",
   "license": "MIT",
