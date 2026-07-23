@@ -67,8 +67,7 @@
   },
   "dependencies": {
     "@quartz-community/types": "^0.2.1",
-    "@quartz-community/utils": "^0.1.0",
-    "yaml": "^2.8.3"
+    "@quartz-community/utils": "^0.1.0"
   },
   "devDependencies": {
     "@types/hast": "^3.0.4",
@@ -94,7 +93,8 @@
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0",
     "vfile": "^6.0.3",
-    "vitest": "^2.1.9"
+    "vitest": "^2.1.9",
+    "yaml": "^2.8.3"
   },
   "quartz": {
     "name": "ttrpg-tools-maps",
