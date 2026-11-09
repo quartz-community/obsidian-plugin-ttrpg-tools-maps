@@ -8,30 +8,31 @@ This plugin is a static-site adaptation of [TTRPG Tools: Maps (zoom-map)](https:
 
 This plugin does **not** include any editing features; it consumes data produced by the original plugin and renders it as a read-only view in Quartz-generated static sites. For authoring maps, install the original plugin in Obsidian.
 
-## Status
-
-**MVP in progress.** See [`.sisyphus/plans/ttrpg-maps.md`](./.sisyphus/plans/ttrpg-maps.md) for the implementation plan.
-
 ## Installation
 
-Not yet published. Once complete, install via:
-
 ```bash
-npx quartz plugin add github:quartz-community/obsidian-plugin-ttrpg-tools-maps
+npx quartz plugin add @quartz-community/obsidian-plugin-ttrpg-tools-maps
 ```
 
-Then register it in `quartz.config.ts`:
+Then enable it in `quartz.config.yaml` (one entry registers the transformer, the emitter that copies the map images, and the map component):
 
-```ts
-import * as TTRPGMaps from "./.quartz/plugins/obsidian-plugin-ttrpg-tools-maps";
-
-export default {
-  plugins: {
-    transformers: [TTRPGMaps.TTRPGMapTransformer()],
-    emitters: [TTRPGMaps.TTRPGMapEmitter()],
-  },
-};
+```yaml title="quartz.config.yaml"
+plugins:
+  - source: "@quartz-community/obsidian-plugin-ttrpg-tools-maps"
+    enabled: true
+    options:
+      blockLanguage: zoommap
+      inlineBlockHeaderId: ZOOMMAP-DATA
 ```
+
+## Configuration
+
+| Option                | Type     | Default          | Description                                                                              |
+| --------------------- | -------- | ---------------- | ---------------------------------------------------------------------------------------- |
+| `blockLanguage`       | `string` | `"zoommap"`      | The code block language that holds a map.                                                |
+| `inlineBlockHeaderId` | `string` | `"ZOOMMAP-DATA"` | The header of inline marker data blocks (`storage: note`).                               |
+| `defaultIconKey`      | `string` | `"pin-red"`      | Accepted, but currently not used: a marker without an icon is always drawn as a red pin. |
+| `maxInlineDataBytes`  | `number` | `0`              | Reserved, currently not used: marker data is always inlined into the page.               |
 
 ## Authoring maps
 
@@ -66,7 +67,7 @@ ZOOMMAP-DATA id=map-1
 %%
 ````
 
-## Supported features (MVP scope)
+## Supported features
 
 - Single and multiple base images with a switcher UI
 - Pan and zoom via mouse wheel, drag, double-click, and pinch
@@ -89,6 +90,10 @@ ZOOMMAP-DATA id=map-1
 - Viewport frame overlays
 - Swap pin click-cycling
 - Canvas render mode
+
+## Documentation
+
+See the [Quartz documentation](https://quartz.jzhao.xyz/plugins/ObsidianPluginTtrpgToolsMaps) for more information.
 
 ## Development
 
