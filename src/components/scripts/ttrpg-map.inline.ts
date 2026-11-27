@@ -108,6 +108,21 @@
     return Math.max(min, Math.min(max, value));
   }
 
+  /**
+   * A path from the site root as a URL under the site's root, which Quartz exposes through
+   * `window.quartzStaticUrl` (`<site>/static/`, resolved once against the first page, so it holds
+   * across SPA navigations and in popovers). Without it (older Quartz) the path is used as is.
+   */
+  function siteUrl(rootPath) {
+    const staticUrl = window.quartzStaticUrl;
+    if (!staticUrl) return rootPath;
+    try {
+      return new URL(rootPath.replace(/^\/+/, ""), new URL("../", staticUrl)).href;
+    } catch {
+      return rootPath;
+    }
+  }
+
   class ReadOnlyMapInstance {
     constructor(rootEl, cfg, data) {
       this.rootEl = rootEl;
@@ -157,25 +172,14 @@
       this.resolvedUrlMap = new Map();
       if (cfg && Array.isArray(cfg.resolvedImageUrls)) {
         for (const ref of cfg.resolvedImageUrls) {
-          if (ref && ref.url && ref.destRel) {
-            this.resolvedUrlMap.set(ref.destRel, ref.url);
-          }
-          if (ref && ref.url && ref.sourcePath) {
-            this.resolvedUrlMap.set(ref.sourcePath, ref.url);
-          }
-          if (ref && ref.url && ref.url) {
-            this.resolvedUrlMap.set(ref.url, ref.url);
-          }
-          if (ref && ref.url && ref.url.startsWith("/") && ref.destRel) {
-            this.resolvedUrlMap.set(ref.destRel, ref.url);
-          }
-          if (ref && ref.url && ref.url && ref.url.startsWith("/") && ref.sourcePath) {
-            this.resolvedUrlMap.set(ref.sourcePath, ref.url);
-          }
-          if (ref && ref.url && ref.url && ref.url.startsWith("/")) {
-            const raw = ref.url.replace(/^\/+/, "");
-            this.resolvedUrlMap.set(raw, ref.url);
-          }
+          if (!ref || !ref.url) continue;
+          // `url` is a path from the site root (`/assets/world.svg`); resolve it against the
+          // site's root URL so a base path (`/sub`) is kept.
+          const url = siteUrl(ref.url);
+          const raw = ref.url.replace(/^\/+/, "");
+          this.resolvedUrlMap.set(ref.url, url);
+          this.resolvedUrlMap.set(raw, url);
+          if (ref.destRel) this.resolvedUrlMap.set(ref.destRel, url);
         }
       }
 

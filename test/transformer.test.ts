@@ -134,6 +134,12 @@ describe("TTRPGMapTransformer", () => {
       expect(cfg.yaml.markers).toBe("world.markers.json");
       expect(cfg.resolvedImageUrls.length).toBeGreaterThan(0);
       expect(cfg.resolvedImageUrls[0].url).toBe("/world.webp");
+      // the build machine's paths stay out of the page; the emitter still gets them
+      expect(cfg.resolvedImageUrls[0]).toEqual({ destRel: "world.webp", url: "/world.webp" });
+      expect(props.dataQzTtrpgMapCfg as string).not.toContain(tmp);
+      expect(file.data.ttrpgMaps?.[0]?.resolvedImageUrls[0]?.sourcePath).toBe(
+        path.join(tmp, "world.webp"),
+      );
 
       const data = JSON.parse(props.dataQzTtrpgMapData as string);
       expect(data.markers[0].tooltip).toBe("Tavern");

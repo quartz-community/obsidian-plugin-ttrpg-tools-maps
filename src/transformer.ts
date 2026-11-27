@@ -326,7 +326,9 @@ async function resolveImageRef(
 function buildPlaceholder(resolved: ResolvedMap): Element {
   const cfg = {
     yaml: resolved.yaml,
-    resolvedImageUrls: resolved.resolvedImageUrls,
+    // Without `sourcePath`, the image's absolute path on the build machine: only the emitter
+    // needs it, and the page must not publish it.
+    resolvedImageUrls: resolved.resolvedImageUrls.map(({ destRel, url }) => ({ destRel, url })),
     error: resolved.error,
   };
   const properties: Record<
