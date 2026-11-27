@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3
+
+### Patch Changes
+
+- 0cab34c: Map images load on sites served under a base path (`/sub/assets/world.svg`, was `/assets/world.svg`, a 404). The page no longer contains the build machine's absolute paths to the map images.
+
 ## 1.0.2
 
 ### Patch Changes
